@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade Calculator</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Grade Calculator">
+  <meta name="author" content="YG14">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Grade Calculator</h1>
+    <h2></h2>
+    <p>YG14<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Motivation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Provide students a tool to calculate the minimum required score that they need to get at the final test in order to get a certain letter grade</p>
+
+<h3>Background:</h3>
+
+<ul>
+<li>Many science instructors believe that students should  get a chance to improve their grade as the semester progress. This is particularly important in science classes because it is hard  and very often students get to understand the material only toward the end of the semester, only after they can see the whole picture. </li>
+<li>One way to implement this philosophy is by dropping lowest interim test and count the final test twice (only in case that the final is higher)</li>
+<li>However, students have hard time to estimate how much they need to get in the final test in order to achieve a certain grade level, especially when multiple interim tests and other grade components are involved such as homework assignments. </li>
+<li>This app is aimed at helping those students. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The Algorithm</h2>
+  </hgroup>
+  <article data-timings="">
+    <h4>Parameters</h4>
+
+<ul>
+<li>Test 1</li>
+<li>Test 2</li>
+<li>Test 3</li>
+<li>Final Test</li>
+<li>Homework</li>
+<li>Final course grade
+<br />each parameter account for 20% of the final grade</li>
+</ul>
+
+<h4>Math</h4>
+
+<ul>
+<li>Final course grade = Final Test + Homework + Test1 + Test2 + Test3
+<br /> ... but if, for example test1 score is lower than the Final Test Score</li>
+<li>Final course grade = 2 * Final Test + Homework + Test2 + Test3</li>
+</ul>
+
+<p>Now, with a little algebra we extract the Final Test</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Examples</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The function for calculating the desierd final test score is below: </p>
+
+<pre><code class="r">finalTest &lt;- function(t1, t2, t3, hw, grade) {
+  #  case tf is not the lowest score 
+  #  (i.e., tf is higher than the lowest test )
+  tf &lt;- grade *5 - (hw + t1 + t2 + t3)
+  min &lt;- min(c(t1,t2,t3))
+
+  if ( tf &gt;  min) {
+    tf &lt;- (grade * 5 - (t1 + t2 + t3 + hw) + min) / 2;
+  }
+
+  return(tf)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>now lets try:</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">Test1 &lt;- 70
+Test2 &lt;- 97
+Test3 &lt;- 89
+Homework &lt;- 95
+
+# Desierd Final Grade &#39;A&#39; (93)
+grade &lt;- 93
+
+finalTest(Test1, Test2, Test3, Homework, grade)
+</code></pre>
+
+<pre><code>## [1] 92
+</code></pre>
+
+<ul>
+<li>You can find the Shiny app at: <a href="http://yg14.shinyapps.io/GradeCalculator">http://yg14.shinyapps.io/GradeCalculator</a></li>
+</ul>
+
+<p><center>Thank you for you time</p>
+
+<h2>Enjoy!</h2>
+
+<p></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Motivation'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The Algorithm'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Examples'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='now lets try:'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
